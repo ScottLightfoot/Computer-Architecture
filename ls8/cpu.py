@@ -1,13 +1,34 @@
 """CPU functionality."""
 
 import sys
+from ops import ops
+
 
 class CPU:
     """Main CPU class."""
 
-    def __init__(self):
-        """Construct a new CPU."""
-        pass
+    def __init__(self, ram = 256, regs = 8):
+        '''
+        Registers:
+        0 - PC (program counter)
+        1 - IR (instruction register)
+        2 - MAR (memory address register)
+        3 - MDR (memory dump register)
+        4 - FL (flags)
+        5 - Interrupt Mask
+        6 - Interrupt Status
+        7 - Stack Pointer
+        '''
+        self.ram = [0] * memory
+        self.reg = [0] * regs
+
+    
+    def ram_read(self, addy):
+        return self.ram[addy]
+    
+    def ram_write(self, addy, val):
+        self.ram[addy] = val
+
 
     def load(self):
         """Load a program into memory."""
@@ -29,6 +50,7 @@ class CPU:
         for instruction in program:
             self.ram[address] = instruction
             address += 1
+        self.reg[0] = self.ram[0]
 
 
     def alu(self, op, reg_a, reg_b):
@@ -62,4 +84,9 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
-        pass
+        self.reg[1] = self.reg[0]
+        
+
+
+
+
